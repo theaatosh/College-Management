@@ -27,9 +27,9 @@ export const Testimonial = () => {
         }
     ])
   return (
-    <div className='w-full h-[40rem]  mt-7'>
+    <div className='w-full h-[48rem]  mt-20 bg-[#F0F0F0]'>
       <h1 className='text-[3rem] font-semibold text-center'>Testimonial</h1>
-        <div className='w-full relative h-[40rem] flex mt-3'>
+        <div className='w-full relative h-[40rem] flex mt-8'>
         {testimonial &&
           testimonial.map((elem, index) => {
             const cardStyles = [
