@@ -1,16 +1,8 @@
-console.log("hello");
-console
+const express=require('express');
+require('dotenv').config();
+const app=express();
 
-console.log(hi)
-
-HTMLFormControlsCollection
-console.log("hi")
-console.log("hi")
-console.log("hi")
-console.log("hi")
-console.log("hi")
-console.log("hi")
-console.log("hi")
-console.log("hi")
-console.log("hi")
-console.log("hi")
+const PORT= process.env.PORT; 
+ app.listen(PORT,()=>{
+    console.log(`server started at ${PORT} port`)
+ });
