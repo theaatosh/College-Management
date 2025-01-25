@@ -33,7 +33,7 @@ export const Events = () => {
       
             </div>
             <h1 className='text-[1.8rem] font-semibold text-center mt-4'>Upcoming Events</h1>
-            <div className=' w-[90%] h-[90%] m-auto flex space-x-10 items-center justify-center '>
+            <div className=' w-[90%]  m-auto flex  space-x-10 items-center justify-center '>
               {events&& 
               events.map((elem,index)=>{
                   return(

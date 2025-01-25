@@ -1,6 +1,6 @@
 import  { useEffect, useState } from 'react'
-import { IoArrowForwardCircleOutline } from "react-icons/io5";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowLeft } from "react-icons/fa6";
 
 export const Landing = () => {
     const[currentIndex,setCurrentIndex]=useState(0)
@@ -26,9 +26,9 @@ export const Landing = () => {
     }, [images.length]);
 
   return (
-    <div className='h-[100vh] bg-gradient-to-b from-[#080759c1] to-[#d31b1bc2] bg-opacity-100 pt-[0.5rem] relative flex flex-col justify-center items-center '>
-        <IoArrowForwardCircleOutline className='text-4xl absolute top-[50%] right-4 cursor-pointer text-white' onClick={handleRightClick} />
-        <IoArrowBackCircleOutline className='text-4xl absolute top-[50%] left-4 cursor-pointer text-white' onClick={handleLeftClick}/>
+    <div className='h-[100vh] w-[100%]  bg-gradient-to-b from-[#080759c1] to-[#d31b1bc2] bg-opacity-100 pt-[0.5rem] relative flex flex-col justify-center items-center '>
+        <FaArrowRight  className='text-4xl absolute top-[50%] right-4 cursor-pointer text-white' onClick={handleRightClick} />
+        <FaArrowLeft className='text-4xl absolute top-[50%] left-4 cursor-pointer text-white' onClick={handleLeftClick}/>
       <div className='w-[90vw]  h-[77vh]  m-auto mt-20 rounded-[10vh]'>
         <img src={images[currentIndex]} alt="" className='h-[100%] w-[100%] rounded-[10vh]' />
         </div>  

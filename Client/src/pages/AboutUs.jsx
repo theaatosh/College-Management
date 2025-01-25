@@ -4,8 +4,8 @@ import { Notice } from "../components/Notice"
 export const AboutUs = () => {
  
   return (
-    <div className="flex justify-between items-center space-x-[12rem] w-full h-[90vh]  pr-10">
-      <AboutContent/>
+    <div className="w-[100%] mt-10  grid grid-cols-1 md:grid-cols-2  gap-4">
+      <AboutContent/> 
       <Notice/>
     </div>
   )

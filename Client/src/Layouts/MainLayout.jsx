@@ -4,7 +4,7 @@ import { Navbar } from '../components/Navbar'
 
 export const MainLayout = () => {
   return (
-    <div>
+    <div className='w-[100%] '>
         <Navbar/>
       <Outlet/>
       <Footer/>

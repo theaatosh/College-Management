@@ -44,7 +44,7 @@ export const Notice = () => {
         }
     ])
   return (
-    <div className='  rounded-tl-[3rem] rounded-bl-[3rem] h-[95%] w-[40%]   flex flex-col overflow-y-scroll shadow-custom'>
+    <div className='  rounded-tl-[3rem] rounded-bl-[3rem] h-[95%] col-span-1   flex flex-col overflow-y-scroll shadow-custom'>
        <h1 className='text-[2rem] font-semibold text-center bg-[#D31B1B] text-white py-2'>Notice Board</h1>
        <div className='h-[100%]'>
             {notice&&notice.length>0?

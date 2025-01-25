@@ -26,10 +26,10 @@ export const Programs = () => {
         },
     ])
   return (
-    <div className='h-[35rem] w-full bg-[#d31b1b3a] flex flex-col'>
+    <div className=' w-full   bg-[#d31b1b3a] '>
      <h1 className='text-[3rem] font-semibold text-center'>Our Programs</h1>
 
-    <div className='h-[100%] flex justify-evenly items-center'>
+    <div className='h-[100%]  grid grid-cols-1 justify-items-center md:grid-cols-2 lg:grid-cols-3 gap-5'>
         {
             program&&program.length>0?
             program.map((elem,index)=>{

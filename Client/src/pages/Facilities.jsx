@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { IoArrowForwardCircleOutline } from "react-icons/io5";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowLeft } from "react-icons/fa6";
 export const Facilities = () => {
 
     const [currentIndex,setCurrentIndex]=useState(1);
@@ -52,8 +52,8 @@ export const Facilities = () => {
                     <p className='w-[90%] text-white text-[1rem]'>{facilities[currentIndex].facility_description}</p>
                 </div>
 
-                <IoArrowForwardCircleOutline className='text-4xl absolute top-[50%] right-20 cursor-pointer text-black' onClick={handleRightClick} />
-                <IoArrowBackCircleOutline className='text-4xl absolute top-[50%] left-20 cursor-pointer text-black' onClick={handleLeftClick}/>
+                <FaArrowRight className='text-4xl absolute top-[50%] right-20 cursor-pointer text-black' onClick={handleRightClick} />
+                <FaArrowLeft  className='text-4xl absolute top-[50%] left-20 cursor-pointer text-black' onClick={handleLeftClick}/>
       </div>
     </div>
   )
