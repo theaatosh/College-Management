@@ -1,0 +1,47 @@
+import { useState } from "react";
+import "./Notices.css";
+const Notices = () => {
+  const [heading, setHeading] = useState("");
+  const [description, setDescription] = useState("");
+  const add = (e) => {
+    e.preventDefault();
+    if (heading.length < 5) {
+      alert("please fill out all the fields");
+    } else if (description.length < 10) {
+      alert("please fill the description");
+    } else {
+      //   axios.post(url, { heading, description });
+      const res = true;
+      if (res) {
+        alert("Notice added");
+      }
+      setDescription("");
+      setHeading("");
+    }
+  };
+  return (
+    <div className="check">
+      <form onSubmit={add}>
+        <textarea
+          type="text"
+          placeholder="Heading"
+          value={heading}
+          onChange={(e) => setHeading(e.target.value)}
+          className="heading"
+        />
+        <textarea
+          type="text"
+          placeholder="Description"
+          className="desc"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <button className="noticeBtn" type="submit">
+          Add
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Notices;
