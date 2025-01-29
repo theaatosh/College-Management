@@ -1,0 +1,43 @@
+.achvImg {
+  display: flex;
+  flex-direction: column;
+}
+.achvImg input {
+  padding: 20px 0px;
+}
+.achvImg label {
+  font-size: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.achvHDesc {
+  margin-bottom: 20px;
+  outline: 1px solid;
+  border-radius: 10px;
+  width: 100%;
+  padding: 10px;
+}
+.achvDesc {
+  padding: 10px;
+  height: 200px;
+  margin-bottom: 20px;
+  outline: 1px solid;
+  border-radius: 10px;
+  width: 100%;
+}
+.achvBtn {
+  position: relative;
+  left: 320px;
+  display: flex;
+  justify-content: center;
+  width: 20%;
+  border-radius: 15px;
+  height: 35px;
+  color: white;
+  font-size: 25px;
+  background-color: rgba(221, 160, 221, 0.667);
+}
+.Seeimg {
+  height: 100px;
+  display: flex;
+}
