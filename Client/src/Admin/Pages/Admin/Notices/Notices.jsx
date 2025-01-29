@@ -1,20 +1,15 @@
 import { useState } from "react";
 import "./Notices.css";
+import axios from "axios";
 const Notices = () => {
   const [heading, setHeading] = useState("");
   const [description, setDescription] = useState("");
   const add = (e) => {
     e.preventDefault();
-    if (heading.length < 5) {
-      alert("please fill out all the fields");
-    } else if (description.length < 10) {
-      alert("please fill the description");
+    if (heading.length < 10 || description.length < 10) {
+      alert("please fill all the fields");
     } else {
-      //   axios.post(url, { heading, description });
-      const res = true;
-      if (res) {
-        alert("Notice added");
-      }
+      // axios.post(url,{heading,description});
       setDescription("");
       setHeading("");
     }
