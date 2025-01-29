@@ -34,13 +34,15 @@
 }
 .comp {
   border-radius: 20px;
-  padding: 30px;
+  padding:  15px 30px;
   position: absolute;
   top: 40px;
   left: 20rem;
   background-color: white;
+  /* border: 1px solid red; */
   height: 87%;
   width: 72%;
+  overflow-y: scroll;
 }
 .activeLink {
   background-color: blueviolet;

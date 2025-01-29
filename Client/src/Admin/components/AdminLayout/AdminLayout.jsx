@@ -6,8 +6,11 @@ import { BsCalendar2Day } from "react-icons/bs";
 import { AiTwotonePicture } from "react-icons/ai";
 
 import logo from "../../../../public/Images/Logo.png";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 const AdminLayout = () => {
+  const location = useLocation();
+  const { pathname } = location;
+  console.log(pathname);
   return (
     <>
       <div className="mainDiv">
@@ -16,8 +19,8 @@ const AdminLayout = () => {
         </div>
         <div className="adminList">
           <NavLink
-            to="/admin/dashboard"
-            className={({ isActive }) => (isActive ? "activeLink" : "")}
+            to="/admin"
+            className={pathname === "/admin" ? "activeLink" : ""}
           >
             <div>
               <span>

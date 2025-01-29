@@ -30,7 +30,8 @@ export const App = () => {
           element: <Notices />,
         },
         {
-          path: "dashboard",
+          index: true,
+          // path: "dashboard",
           element: <Dashboard />,
         },
         {
