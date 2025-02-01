@@ -1,8 +1,21 @@
-const express=require('express');
-require('dotenv').config();
-const app=express();
+const express=require("express");
+const dotenv=require("dotenv").config();
+const dbConnection=require("./config/dbConnection")
 
-const PORT= process.env.PORT; 
- app.listen(PORT,()=>{
-    console.log(`server started at ${PORT} port`)
- });
+const app=express();
+dbConnection();
+
+
+app.use(express.json());
+
+const notice=require('./routes/notices.routes');
+app.use('/api/notices',notice)
+
+const achievement=require('./routes/achievements.routes')
+app.use('/api/achievements',achievement)
+
+const PORT=process.env.PORT
+app.listen(PORT,()=>{
+   console.log("Server started at port ",PORT);
+   
+})
