@@ -8,11 +8,17 @@ dbConnection();
 
 app.use(express.json());
 
+//for notice
 const notice=require('./routes/notices.routes');
 app.use('/api/notices',notice)
 
+//for achievements
 const achievement=require('./routes/achievements.routes')
 app.use('/api/achievements',achievement)
+
+//for events
+const event=require('./routes/events.routes')
+app.use('/api/events',event)
 
 const PORT=process.env.PORT
 app.listen(PORT,()=>{

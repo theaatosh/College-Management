@@ -16,6 +16,7 @@ const createAchievement=async(req,res)=>{
             if(post){
                 res.status(201).json({
                     message:"achievement posted successfully",
+                    data:post
                 })
             }
             
@@ -72,7 +73,13 @@ const fetchAchievement=async(req,res)=>{
                 message:"Achievements fetched successfully",
                 data:achievementData
             })
+        }else{
+            res.status(200).json({
+                message:"No achievements",
+                data:achievementData
+            })
         }
+        
         }catch(err){
         res.status(500).json("Error fetching in achievement")
     }
@@ -81,10 +88,35 @@ const fetchAchievement=async(req,res)=>{
 //for updating achievements
 const updateAchievement=async(req,res)=>{
     const {id}=req.params;
+
+    const {heading,subHeading,description}=req.body
     try{
+        if(!heading||!subHeading||!description){
+            return res.status(400).json({
+                message:"all fields are required"
+            })
+        }
+        
+        const exist=await Achievement.findById(id);
+
+        if(!exist){
+            return res.status(400).json({
+                error:"Doesnot Exist"
+            })
+        }
+
+        const achievement=await Achievement.findByIdAndUpdate(id,{heading,subHeading,description},{new:true});        
+        if(achievement){
+            res.status(200).json({
+                message:"Updated Successfully",
+                data:achievement
+            })
+        }
 
     }catch(err){
-        res.status(500).json({message:"unable to update"})
+        res.status(500).json({
+            message:"Unable to update achievement"
+        })
         console.log(err);
         
     }
