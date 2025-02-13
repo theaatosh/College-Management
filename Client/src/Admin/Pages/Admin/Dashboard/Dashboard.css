@@ -1,0 +1,62 @@
+.DasdBoardMainDiv {
+  border: solid grey;
+  border-width: 0px 2px 2px 2px;
+  display: flex;
+  font-size: 32px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #f5f5f5;
+}
+.dashMainTopic {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+}
+.noticeList {
+  padding: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  font-size: 26px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  background-color: #f5f5f5;
+  justify-content: space-between;
+  overflow: hidden;
+  height: 10vh;
+  /* border: 1px solid green; */
+  border-radius: 10px;
+}
+.noticeListTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.noticeListIcons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-right: 15px;
+}
+.landingPageImagesList {
+  border-bottom: 1px solid grey;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 20px;
+  justify-content: space-between;
+  width: 100%;
+}
+.landingPageImages {
+  height: 5.5rem;
+  width: 5.5rem;
+  border: 1px solid red;
+}
