@@ -1,4 +1,7 @@
+const { cloudinary } = require('../config/cloudinary');
 const eventModel=require('../models/eventModel')
+
+//for fetching event
 const fetchEvent=async(req,res)=>{
     try{
         const eventData=await eventModel.find();
@@ -19,17 +22,31 @@ const fetchEvent=async(req,res)=>{
     }
 }
 
+//for creating event
 const createEvent=async(req,res)=>{
     const{heading,subHeading,description}=req.body;
-        
+    let secure_url=null;
+    let public_id=null;
+    console.log(req.files);
+    
+    req.files?.forEach(image => {
+        secure_url=image.path,
+        public_id=image.filename
+    });
+    const images={
+        secure_url,
+        public_id
+    }
     try{
-        if(!heading||!subHeading||!description){
+        if(!heading||!subHeading||!description||req.files.length===0){
           return  res.status(400).json({
                 message:"All fields are required"
             })
         }
+        
 
-        const post=await eventModel.create({heading,subHeading,description})
+
+        const post=await eventModel.create({heading,subHeading,description,images})
         if(post){
             res.status(201).json({
                 message:"event posted successfully",
@@ -44,11 +61,11 @@ const createEvent=async(req,res)=>{
     }
 }
 
+//for deleting event
 const deleteEvent=async(req,res)=>{
     const {id}=req.params;
 
     try{
-        console.log("helo");
         
         const exist=await eventModel.findById(id);
         
@@ -57,7 +74,9 @@ const deleteEvent=async(req,res)=>{
                 error:"Doesnot Exist"
             })
         }
-
+        console.log(exist);
+        
+        await cloudinary.uploader.destroy(exist?.images?.public_id)
         const event=await eventModel.findByIdAndDelete(id);        
         if(event){
             res.status(200).json({
@@ -75,12 +94,24 @@ const deleteEvent=async(req,res)=>{
     }
 }
 
+//for updating event
 const updateEvent=async(req,res)=>{
     const {id}=req.params;
 
+    let secure_url=null;
+    let public_id=null;
+req.files?.forEach(image => {
+    secure_url=image.path,
+    public_id=image.fullname
+});
+
+const images={
+    secure_url,
+    public_id
+}
     const {heading,subHeading,description}=req.body
     try{
-        if(!heading||!subHeading||!description){
+        if(!heading||!subHeading||!description||req.files.length===0){
             return res.status(400).json({
                 message:"all fields are required"
             })
@@ -93,9 +124,12 @@ const updateEvent=async(req,res)=>{
                 error:"Doesnot Exist"
             })
         }
+       const del= await cloudinary.uploader.destroy(exist?.images?.public_id);
+       console.log(del);
+       
 
         const event=await eventModel.findByIdAndUpdate(id,
-            {heading,subHeading,description},
+            {heading,subHeading,description,images},
             {new:true});        
 
         if(event){
