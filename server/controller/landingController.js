@@ -1,5 +1,7 @@
 const {landingModel}=require("../models/landingImagesModel")
-const landingController=async(req,res)=>{
+
+//for adding images
+const createImages=async(req,res)=>{
 console.log(req.files);
 
 try{
@@ -41,4 +43,58 @@ console.log(imagesArr);
 
 }
 
-module.exports={landingController}
+//for fetching images
+const fetchImages=async(req,res)=>{
+
+    try{
+        const images=await landingModel.find();
+        if(images){
+            res.status(200).json({
+                message:"Images fetched successfully",
+                data:images
+            })
+        }
+        
+    }catch(err){
+        console.log("Error Fetching images",err);
+        res.status(500).json({
+            message:"error fetching images"
+        })
+        
+    }
+}
+
+
+//for deleting images
+
+const deleteImages=async(req,res)=>{
+    console.log("hello");
+    
+    const {id,public_id}=req.params
+    try{
+        if(id){
+            const del = await landingModel.findByIdAndUpdate(
+                id, 
+                { $pull: { images: { public_id: public_id } } },
+                { new: true }
+            );
+            
+            if (del) {
+                res.status(200).json({
+                    message: 'Image deleted successfully',
+                    deletedDocument: del
+                });
+            } else {
+                res.status(404).json({ message: 'Landing page not found' });
+            }
+            
+        }
+
+    }catch(err){
+        console.log("Error deleting images",err);
+        res.status(500).json({
+            message:"error Deleting images"
+        })
+    }
+}
+module.exports={createImages,fetchImages,deleteImages}
