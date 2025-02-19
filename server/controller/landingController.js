@@ -67,34 +67,34 @@ const fetchImages=async(req,res)=>{
 
 //for deleting images
 
-const deleteImages=async(req,res)=>{
-    console.log("hello");
+// const deleteImages=async(req,res)=>{
+//     console.log("hello");
     
-    const {id,public_id}=req.params
-    try{
-        if(id){
-            const del = await landingModel.findByIdAndUpdate(
-                id, 
-                { $pull: { images: { public_id: public_id } } },
-                { new: true }
-            );
+//     const {id,public_id}=req.params
+//     try{
+//         if(id){
+//             const del = await landingModel.findByIdAndUpdate(
+//                 id, 
+//                 { $pull: { images: { public_id: public_id } } },
+//                 { new: true }
+//             );
             
-            if (del) {
-                res.status(200).json({
-                    message: 'Image deleted successfully',
-                    deletedDocument: del
-                });
-            } else {
-                res.status(404).json({ message: 'Landing page not found' });
-            }
+//             if (del) {
+//                 res.status(200).json({
+//                     message: 'Image deleted successfully',
+//                     deletedDocument: del
+//                 });
+//             } else {
+//                 res.status(404).json({ message: 'Landing page not found' });
+//             }
             
-        }
+//         }
 
-    }catch(err){
-        console.log("Error deleting images",err);
-        res.status(500).json({
-            message:"error Deleting images"
-        })
-    }
-}
+//     }catch(err){
+//         console.log("Error deleting images",err);
+//         res.status(500).json({
+//             message:"error Deleting images"
+//         })
+//     }
+// }
 module.exports={createImages,fetchImages,deleteImages}
