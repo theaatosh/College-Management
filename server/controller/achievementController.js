@@ -1,18 +1,33 @@
+const { cloudinary } = require("../config/cloudinary");
 const Achievement=require("../models/achievementModel")
 
 //achievement post garna
 const createAchievement=async(req,res)=>{
+    console.log("hello");
+        console.log(req.files);
 
+        let secure_url=null;
+        let public_id=null;
+        req.files?.forEach(element => {
+            secure_url=element.path,
+            public_id=element.filename
+        });
+        const images={
+            secure_url,
+            public_id
+        }
+        console.log(images);
+        
         const{heading,subHeading,description}=req.body;
         
         try{
-            if(!heading||!subHeading||!description){
+            if(!heading||!subHeading||!description||req.files.length===0){
               return  res.status(400).json({
                     message:"All fields are required"
                 })
             }
 
-            const post=await Achievement.create({heading,subHeading,description})
+            const post=await Achievement.create({heading,subHeading,description,images})
             if(post){
                 res.status(201).json({
                     message:"achievement posted successfully",
@@ -21,6 +36,8 @@ const createAchievement=async(req,res)=>{
             }
             
         }catch(err){
+            console.log("Unable to post achievements"+err);
+            
             res.status(500).json({
                 message:"Unable to post achievements"
             })
@@ -44,7 +61,7 @@ const deleteAchievement=async(req,res)=>{
                 error:"Doesnot Exist"
             })
         }
-
+        await cloudinary.uploader.destroy(exist?.images?.public_id);
         const achievement=await Achievement.findByIdAndDelete(id);        
         if(achievement){
             res.status(200).json({
@@ -88,24 +105,39 @@ const fetchAchievement=async(req,res)=>{
 //for updating achievements
 const updateAchievement=async(req,res)=>{
     const {id}=req.params;
+    let secure_url=null;
+    let public_id=null;
+    req.files?.forEach(element => {
+        secure_url=element.path,
+        public_id=element.filename
+    });
+    const images={
+        secure_url,
+        public_id
+    }
+    console.log(images);
 
     const {heading,subHeading,description}=req.body
     try{
-        if(!heading||!subHeading||!description){
+        if(!heading||!subHeading||!description||req.files.length===0){
             return res.status(400).json({
                 message:"all fields are required"
             })
         }
         
         const exist=await Achievement.findById(id);
+console.log(exist);
 
         if(!exist){
             return res.status(400).json({
                 error:"Doesnot Exist"
             })
         }
-
-        const achievement=await Achievement.findByIdAndUpdate(id,{heading,subHeading,description},{new:true});        
+        console.log(exist.images.public_id);
+        
+        const deletedImage=await cloudinary.uploader.destroy(exist?.images?.public_id)
+        
+         const achievement=await Achievement.findByIdAndUpdate(id,{heading,subHeading,description,images},{new:true});        
         if(achievement){
             res.status(200).json({
                 message:"Updated Successfully",

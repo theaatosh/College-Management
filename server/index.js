@@ -22,6 +22,10 @@ app.use('/api/achievements',achievement)
 const event=require('./routes/events.routes')
 app.use('/api/events',event)
 
+//for landingImages
+const landing=require("./routes/landing.routes")
+app.use('/api/landing',landing)
+
 const PORT=process.env.PORT
 app.listen(PORT,()=>{
    console.log("Server started at port ",PORT);

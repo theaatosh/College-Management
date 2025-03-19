@@ -16,8 +16,12 @@ const eventSchema=mongoose.Schema({
                 required:true
             },
             images:{
-                type:[String],
-                required:true
+                secure_url:{
+                    type:String
+                },
+                public_id:{
+                    type:String
+                }
             }
         
     })

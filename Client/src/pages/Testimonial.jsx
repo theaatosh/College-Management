@@ -27,23 +27,22 @@ export const Testimonial = () => {
         }
     ])
   return (
-    <div className='w-full h-[48rem]  mt-20 bg-[#F0F0F0]'>
+    <div className='w-full h-[48rem]  mt-20 bg-[#F0F0F0] border-2 border-red-500'>
       <h1 className='text-[3rem] font-semibold text-center'>Testimonial</h1>
-        <div className='w-full relative h-[40rem] flex mt-8'>
+        <div className='w-full relative h-[40rem] grid md:grid-cols-2  mt-8 '>
         {testimonial &&
           testimonial.map((elem, index) => {
-            const cardStyles = [
-              "absolute top-0 left-[10rem]", // First card
-              "absolute top-[7rem] right-[10rem]", // Second card
-              "absolute top-[23rem] right-[35rem]", // Third card
-            ];
+            // const cardStyles = [
+            //   "absolute top-0 left-[10rem]", // First card
+            //   "absolute top-[7rem] right-[10rem]", // Second card
+            //   "absolute top-[23rem] right-[35rem]", // Third card
+            // ];
+            
             return (
-              <div key={index} className={cardStyles[index]}>
-                <TestimonialCard elem={elem} />
-              </div>
+                <TestimonialCard key={index} elem={elem} />
             );
           })}
-        </div>
+        </div>                
     </div>
   )
 }

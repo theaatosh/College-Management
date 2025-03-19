@@ -1,20 +1,16 @@
-const express = require("express");
-const {
-  createAchievement,
-  deleteAchievement,
-  updateAchievement,
-  fetchAchievement,
-} = require("../controller/achievementController");
-const multer = require("multer");
+const express=require("express");
+const { createAchievement, deleteAchievement, updateAchievement, fetchAchievement } = require("../controller/achievementController");
+
 const { createCloudinaryStorage } = require("../config/cloudinary");
 const router = express.Router();
 
-const achievementStorage = createCloudinaryStorage("achievement_images");
-const uploadAchievementImages = multer({ storage: achievementStorage });
+const {storeImage}=require('../config/cloudinary.js')
 
-router.post("/create", createAchievement);
-router.delete("/delete/:id", deleteAchievement);
-router.put("/update/:id", updateAchievement);
-router.get("/fetch", fetchAchievement);
+
+router.post('/create',storeImage("achievement").array('image',3),createAchievement);
+router.delete('/delete/:id',deleteAchievement)
+router.put('/update/:id',storeImage("achievement").array('image',3),updateAchievement);
+router.get('/fetch',fetchAchievement);
+
 
 module.exports = router;
