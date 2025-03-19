@@ -2,7 +2,7 @@ const express=require("express");
 const { createAchievement, deleteAchievement, updateAchievement, fetchAchievement } = require("../controller/achievementController");
 
 const { createCloudinaryStorage } = require("../config/cloudinary");
-const router=express.Router();
+const router = express.Router();
 
 const {storeImage}=require('../config/cloudinary.js')
 
@@ -13,4 +13,4 @@ router.put('/update/:id',storeImage("achievement").array('image',3),updateAchiev
 router.get('/fetch',fetchAchievement);
 
 
-module.exports=router;
+module.exports = router;

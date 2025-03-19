@@ -7,7 +7,7 @@ const Events = () => {
   const [eventsSubHeading, setEventsSubHeading] = useState("");
   const [eventsPhoto, setEventsPhoto] = useState([]);
 
-  const add = (e) => {
+  const add = async (e) => {
     e.preventDefault();
     if (
       eventsDescription.length < 10 ||
@@ -15,15 +15,36 @@ const Events = () => {
       eventsSubHeading < 10 ||
       eventsPhoto < 0
     ) {
-      alert("fill all the fields");
-    } else {
-      // axios.post(url,{eventsDescription,eventsHeading, eventsPhoto, eventsSubHeading})
-      setEventsDescription("");
-      setEventsHeading("");
-      setEventsPhoto([]);
-      setEventsSubHeading("");
-      alert("succesfully added");
+      return alert("fill all the fields");
     }
+    const formdata = new FormData();
+    formdata.append("eventsDescription".eventsDescription);
+    formdata.append("eventsHeading", eventsHeading);
+    formdata.append("eventsSubHeading", eventsSubHeading);
+    eventsPhoto.forEach((photo) => {
+      formdata.append("eventPhotos", photo);
+    });
+    try {
+      const res = await axios.post("http://localhost:3000/api/events", {
+        formdata,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (res.status === 200) {
+        alert("Achievement added successfully !");
+      } else {
+        alert("Something went wrong !");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setEventsDescription("");
+    setEventsHeading("");
+    setEventsPhoto([]);
+    setEventsSubHeading("");
+    alert("succesfully added");
   };
   const handlePhotoChange = (e) => {
     const files = Array.from(e.target.files); // Convert FileList to an array
@@ -44,7 +65,7 @@ const Events = () => {
           )}
           <input
             type="file"
-            accept="/image"
+            accept="image/*"
             id="photos"
             onChange={handlePhotoChange}
             multiple

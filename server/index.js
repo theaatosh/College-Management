@@ -7,6 +7,8 @@ dbConnection();
 
 
 app.use(express.json());
+const cors = require("cors");
+app.use(cors());
 
 //for notice
 const notice=require('./routes/notices.routes');

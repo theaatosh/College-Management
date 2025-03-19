@@ -9,7 +9,15 @@ const Notices = () => {
     if (heading.length < 10 || description.length < 10) {
       alert("please fill all the fields");
     } else {
-      // axios.post(url,{heading,description});
+      const formdata = new FormData();
+      formdata.append("heading", heading);
+      formdata.append("description", description);
+      try {
+        axios.post("http://localhost:3000/api/notices", formdata);
+        
+      } catch (err) {
+        console.log(err);
+      }
       setDescription("");
       setHeading("");
     }
