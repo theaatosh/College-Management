@@ -1,31 +1,55 @@
 import { useState } from "react";
 import "./Achievements.css";
+import axios from "axios";
 const Achievements = () => {
   const [acheivementDescription, setAcheivementDescription] = useState("");
   const [acheivementHeading, setAcheivementHeading] = useState("");
   const [acheivementSubHeading, setAcheivementSubHeading] = useState("");
   const [photos, setPhotos] = useState([]);
-  const add = (e) => {
-    console.log("hi");
+  const add = async (e) => {
     e.preventDefault();
-
     if (
       acheivementHeading.length < 10 ||
       acheivementSubHeading.length < 10 ||
-      acheivementDescription < 10 ||
-      photos.length < 10
+      acheivementDescription.length < 10 ||
+      photos.length === 0
     ) {
-      setAcheivementDescription("");
-      setAcheivementHeading("");
-      setPhotos([]);
-      setAcheivementSubHeading("");
+      // setAcheivementDescription("");
+      // setAcheivementHeading("");
+      // setPhotos([]);
+      // setAcheivementSubHeading("");
       alert("please fill all the fields");
     } else {
-      setAcheivementDescription("");
-      setAcheivementHeading("");
-      setPhotos([]);
-      setAcheivementSubHeading("");
-      alert("Achievement added successfully!");
+      // setAcheivementDescription("");
+      // setAcheivementHeading("");
+      // setPhotos([]);
+      // setAcheivementSubHeading("");
+      const formdata = new FormData();
+      photos.forEach((photo) => {
+        formdata.append("photos", photo);
+      });
+      formdata.append("acheivementDescription", acheivementDescription);
+      formdata.append("acheivementHeading", acheivementHeading);
+      formdata.append("acheivementSubHeading", acheivementSubHeading);
+      try {
+        const res = await axios.post(
+          "http://localhost:3000/api/achievements/create",
+          {
+            formdata,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        if (res.status === 200) {
+          alert("Achievement added successfully !");
+        } else {
+          alert("Something went wrong !");
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
   const handlePhotoChange = (e) => {
@@ -47,7 +71,7 @@ const Achievements = () => {
           )}
           <input
             type="file"
-            accept="/image"
+            accept="image/*"
             id="photos"
             onChange={handlePhotoChange}
             multiple
