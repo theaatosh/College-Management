@@ -19,12 +19,13 @@ const Events = () => {
     }
     const formdata = new FormData();
     formdata.append("eventsDescription", eventsDescription);
+    // console.log(eventsDescription, eventsHeading, eventsSubHeading);
     formdata.append("eventsHeading", eventsHeading);
     formdata.append("eventsSubHeading", eventsSubHeading);
-    // eventsPhoto.forEach(({ file }) => {
-    //   // console.log(photo);
-    //   formdata.append("eventPhotos", file);
-    // });
+    eventsPhoto.forEach(({ file }) => {
+      // console.log(file);
+      formdata.append("eventPhotos", file);
+    });
     try {
       const res = await axios.post(
         "http://localhost:3000/api/events/create",
@@ -36,19 +37,18 @@ const Events = () => {
         }
       );
       console.log(res);
-      if (res.status === 200) {
+      if (res.status === 201) {
         alert("Achievement added successfully !");
+        setEventsDescription("");
+        setEventsHeading("");
+        setEventsPhoto([]);
+        setEventsSubHeading("");
       } else {
         alert("Something went wrong !");
       }
     } catch (err) {
       console.log(err.message);
     }
-    // setEventsDescription("");
-    // setEventsHeading("");
-    // setEventsPhoto([]);
-    // setEventsSubHeading("");
-    // alert("succesfully added");
   };
   const handlePhotoChange = (e) => {
     const files = Array.from(e.target.files); // Convert FileList to an array

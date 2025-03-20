@@ -23,7 +23,10 @@ const fetchEvent = async (req, res) => {
 
 //for creating event
 const createEvent = async (req, res) => {
-  const { heading, subHeading, description } = req.body;
+  const { eventsSubHeading, eventsHeading, eventsDescription } = req.body;
+  console.log("from creatfile");
+  console.log(req.body);
+  console.log(req.files);
   let secure_url = null;
   let public_id = null;
   req.files?.forEach((image) => {
@@ -34,20 +37,26 @@ const createEvent = async (req, res) => {
     public_id,
   };
   try {
-    if (!heading || !subHeading || !description || req.files.length === 0) {
+    if (
+      !eventsHeading ||
+      !eventsSubHeading ||
+      !eventsDescription ||
+      req.files.length === 0
+    ) {
       return res.status(400).json({
         message: "All fields are required",
       });
     }
 
     const post = await eventModel.create({
-      heading,
-      subHeading,
-      description,
+      heading: eventsHeading,
+      subHeading: eventsSubHeading,
+      description: eventsDescription,
       images,
     });
     if (post) {
-      res.status(201).json({
+      console.log(post);
+      return res.status(201).json({
         message: "event posted successfully",
         data: post,
       });
