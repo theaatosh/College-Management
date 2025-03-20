@@ -7,9 +7,9 @@ const router = express.Router();
 const {storeImage}=require('../config/cloudinary.js')
 
 
-router.post('/create',storeImage("achievement").array('image',3),createAchievement);
+router.post('/create',storeImage("achievement").array('image',5),createAchievement);
 router.delete('/delete/:id',deleteAchievement)
-router.put('/update/:id',storeImage("achievement").array('image',3),updateAchievement);
+router.put('/update/:id',storeImage("achievement").array('image',5),updateAchievement);
 router.get('/fetch',fetchAchievement);
 
 

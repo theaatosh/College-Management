@@ -12,44 +12,55 @@ const Events = () => {
     if (
       eventsDescription.length < 10 ||
       eventsHeading.length < 10 ||
-      eventsSubHeading < 10 ||
-      eventsPhoto < 0
+      eventsSubHeading.length < 10 ||
+      eventsPhoto.length === 0
     ) {
       return alert("fill all the fields");
     }
     const formdata = new FormData();
-    formdata.append("eventsDescription".eventsDescription);
+    formdata.append("eventsDescription", eventsDescription);
     formdata.append("eventsHeading", eventsHeading);
     formdata.append("eventsSubHeading", eventsSubHeading);
-    eventsPhoto.forEach((photo) => {
-      formdata.append("eventPhotos", photo);
-    });
+    // eventsPhoto.forEach(({ file }) => {
+    //   // console.log(photo);
+    //   formdata.append("eventPhotos", file);
+    // });
     try {
-      const res = await axios.post("http://localhost:3000/api/events", {
+      const res = await axios.post(
+        "http://localhost:3000/api/events/create",
         formdata,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
+        {
+          headers: {
+            // "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(res);
       if (res.status === 200) {
         alert("Achievement added successfully !");
       } else {
         alert("Something went wrong !");
       }
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
-    setEventsDescription("");
-    setEventsHeading("");
-    setEventsPhoto([]);
-    setEventsSubHeading("");
-    alert("succesfully added");
+    // setEventsDescription("");
+    // setEventsHeading("");
+    // setEventsPhoto([]);
+    // setEventsSubHeading("");
+    // alert("succesfully added");
   };
   const handlePhotoChange = (e) => {
     const files = Array.from(e.target.files); // Convert FileList to an array
     const imageUrls = files.map((file) => URL.createObjectURL(file));
-    setEventsPhoto((prev) => [...prev, ...imageUrls]);
+    // setEventsPhoto((prev) => [...prev, ...imageUrls]);
+    setEventsPhoto((prev) => [
+      ...prev,
+      ...files.map((file, index) => ({
+        file: file, // The actual file object
+        previewUrl: imageUrls[index], // The URL for preview
+      })),
+    ]);
   };
   return (
     <>
@@ -58,8 +69,13 @@ const Events = () => {
           <label htmlFor="">Insert Image Here</label>
           {eventsPhoto.length > 0 && (
             <div style={{ display: "flex", gap: "15px" }}>
-              {eventsPhoto.map((img, index) => (
-                <img className="Seeimg" key={index} src={img} alt="Uploaded" />
+              {eventsPhoto.map(({ previewUrl }, index) => (
+                <img
+                  className="Seeimg"
+                  key={index}
+                  src={previewUrl}
+                  alt="Uploaded"
+                />
               ))}
             </div>
           )}
@@ -95,7 +111,7 @@ const Events = () => {
             onChange={(e) => setEventsDescription(e.target.value)}
           ></textarea>
         </div>
-        <button className="achvBtn" type="submit">
+        <button className="achvBtn" type="submit" onClick={add}>
           Add
         </button>
       </form>
