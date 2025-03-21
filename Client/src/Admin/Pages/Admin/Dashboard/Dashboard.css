@@ -51,12 +51,21 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 5px;
   justify-content: space-between;
   width: 100%;
 }
 .landingPageImages {
   height: 5.5rem;
   width: 5.5rem;
-  border: 1px solid red;
+}
+.landingPageImages img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.deleteIcon {
+  color: red;
+  cursor: pointer;
+  font-size: 2.5rem;
 }

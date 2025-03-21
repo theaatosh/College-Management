@@ -3,6 +3,7 @@ const Achievement = require("../models/achievementModel");
 
 //achievement post garna
 const createAchievement = async (req, res) => {
+  console.log(req.body);
   let secure_url = null;
   let public_id = null;
   req.files?.forEach((element) => {
@@ -12,22 +13,29 @@ const createAchievement = async (req, res) => {
     secure_url,
     public_id,
   };
-  const { heading, subHeading, description } = req.body;
+  const { acheivementHeading, acheivementSubHeading, acheivementDescription } =
+    req.body;
 
   try {
-    if (!heading || !subHeading || !description || req.files.length === 0) {
-      return res.status(400).json({
+    if (
+      !acheivementHeading ||
+      !acheivementSubHeading ||
+      !acheivementDescription ||
+      req.files.length === 0
+    ) {
+      return res.status(401).json({
         message: "All fields are required",
       });
     }
 
     const post = await Achievement.create({
-      heading,
-      subHeading,
-      description,
+      heading: acheivementHeading,
+      subHeading: acheivementSubHeading,
+      description: acheivementDescription,
       images,
     });
     if (post) {
+      console.log(post);
       res.status(201).json({
         message: "achievement posted successfully",
         data: post,
