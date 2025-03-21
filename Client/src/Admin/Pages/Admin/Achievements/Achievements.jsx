@@ -14,19 +14,11 @@ const Achievements = () => {
       acheivementDescription.length < 10 ||
       photos.length === 0
     ) {
-      // setAcheivementDescription("");
-      // setAcheivementHeading("");
-      // setPhotos([]);
-      // setAcheivementSubHeading("");
       alert("please fill all the fields");
     } else {
-      // setAcheivementDescription("");
-      // setAcheivementHeading("");
-      // setPhotos([]);
-      // setAcheivementSubHeading("");
       const formdata = new FormData();
-      photos.forEach((photo) => {
-        formdata.append("photos", photo);
+      photos.forEach(({ file }) => {
+        formdata.append("achievementPhotos", file);
       });
       formdata.append("acheivementDescription", acheivementDescription);
       formdata.append("acheivementHeading", acheivementHeading);
@@ -34,16 +26,20 @@ const Achievements = () => {
       try {
         const res = await axios.post(
           "http://localhost:3000/api/achievements/create",
+          formdata,
           {
-            formdata,
             headers: {
               "Content-Type": "multipart/form-data",
             },
           }
         );
 
-        if (res.status === 200) {
+        if (res.status === 201) {
           alert("Achievement added successfully !");
+          setAcheivementDescription("");
+          setAcheivementHeading("");
+          setPhotos([]);
+          setAcheivementSubHeading("");
         } else {
           alert("Something went wrong !");
         }
@@ -55,7 +51,13 @@ const Achievements = () => {
   const handlePhotoChange = (e) => {
     const files = Array.from(e.target.files); // Convert FileList to an array
     const imageUrls = files.map((file) => URL.createObjectURL(file));
-    setPhotos((prev) => [...prev, ...imageUrls]);
+    setPhotos((prev) => [
+      ...prev,
+      ...files.map((file, index) => ({
+        file: file, // The actual file object
+        previewUrl: imageUrls[index], // The URL for preview
+      })),
+    ]);
   };
   return (
     <>
@@ -64,8 +66,13 @@ const Achievements = () => {
           <label htmlFor="">Insert Image Here</label>
           {photos.length > 0 && (
             <div style={{ display: "flex", gap: "15px" }}>
-              {photos.map((img, index) => (
-                <img className="Seeimg" key={index} src={img} alt="Uploaded" />
+              {photos.map(({ previewUrl }, index) => (
+                <img
+                  className="Seeimg"
+                  key={index}
+                  src={previewUrl}
+                  alt="Uploaded"
+                />
               ))}
             </div>
           )}

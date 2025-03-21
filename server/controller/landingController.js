@@ -2,12 +2,12 @@ const { landingModel } = require("../models/landingImagesModel");
 
 //for adding images
 const createImages = async (req, res) => {
-  // console.log(req.files);
+  console.log(req.files);
 
   try {
-    if (req.files.length < 2) {
+    if (req.files.length < 1) {
       return res.status(400).json({
-        message: "Select at least two photos",
+        message: "Select at least one photos",
       });
     }
     let secure_url = null;
@@ -21,7 +21,6 @@ const createImages = async (req, res) => {
 
     if (imagesArr) {
       const created = await landingModel.create({ images: imagesArr });
-
       if (created) {
         res.status(201).json({
           data: created,

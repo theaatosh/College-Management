@@ -12,9 +12,6 @@ cloudinary.config({
 
 //yo xai setup cloudinary ko lagi
 const storeImage = (folderName) => {
-  console.log("here");
-  console.log(folderName);
-
   try {
     const storage = new CloudinaryStorage({
       cloudinary: cloudinary,
@@ -23,7 +20,6 @@ const storeImage = (folderName) => {
         allowed_formats: ["jpg", "jpeg", "png"],
       },
     });
-    console.log("hereYeta");
     return multer({ storage });
   } catch (err) {
     console.log(err);
