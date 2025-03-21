@@ -23,7 +23,6 @@ const Events = () => {
     formdata.append("eventsHeading", eventsHeading);
     formdata.append("eventsSubHeading", eventsSubHeading);
     eventsPhoto.forEach(({ file }) => {
-      // console.log(file);
       formdata.append("eventPhotos", file);
     });
     try {

@@ -44,6 +44,7 @@ const Dashboard = () => {
       const response = await fetch("http://localhost:3000/api/landing/fetch");
       const data = await response.json();
       setLandingImages(data.data);
+      console.log(data.data);
     } catch (error) {
       console.error(error);
     }
